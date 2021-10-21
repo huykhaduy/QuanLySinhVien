@@ -12,6 +12,7 @@ public class Main {
         int choice = 0;
         boolean isLoop = true;
         while (isLoop) {
+            System.out.println("");
             System.out.println("-----------------MENU QUAN LY SINH VIEN-----------------");
             System.out.println("1. Them sinh vien");
             System.out.println("2. Xoa sinh vien");

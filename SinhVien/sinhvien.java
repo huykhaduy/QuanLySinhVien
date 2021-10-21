@@ -156,7 +156,7 @@ public class sinhvien {
         if (isSet) {
             System.out.println("Diem toan: " + diemToan);
             System.out.println("Diem hoa: " + diemHoa);
-            System.out.println("Diem ly" + diemLy);
+            System.out.println("Diem ly: " + diemLy);
             System.out.println("Diem trung binh cua sinh vien: " + getDiemTrungBinh());
         } else {
             System.out.println("Sinh vien chua duoc nhap diem!");
@@ -165,6 +165,6 @@ public class sinhvien {
     }
     
     public void showInList() {
-        System.out.println("MSSV: " + mssv +", name: " + name);
+        System.out.println("MSSV: " + mssv +", name: " + name +", lop: "+lop+", khoa: "+khoa);
     }
 }
