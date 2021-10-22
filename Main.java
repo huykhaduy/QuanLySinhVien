@@ -19,7 +19,7 @@ public class Main {
             System.out.println("3. Sua sinh vien");
             System.out.println("4. Nhap diem cho sinh vien");
             System.out.println("5. Xem thong tin va diem cua sinh vien");
-            System.out.println("6. Xuat ra danh dach sinh vien");
+            System.out.println("6. Xuat ra danh dach sinh vien (theo mssv tang dan)");
             System.out.println("7. Tim kiem sinh vien co diem theo dieu kien (dang phat trien)");
             System.out.println("8. In ra danh sach sinh vien (dang phat trien)");
             System.out.println("9. Thoat");
