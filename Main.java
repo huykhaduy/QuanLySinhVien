@@ -1,14 +1,22 @@
 import SinhVien.*;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.lang.NumberFormatException;
+
 
 public class Main {
     static Scanner sc = new Scanner(System.in);
     static LinkedList<sinhvien> listSV = new LinkedList<sinhvien>();
     // Variable using for check student exist or not 
-    static boolean isHasStudent = false; 
+    static boolean isHasStudent = false;
 
+    
     public static void main(String argv[]) {
+        loadData();
         int choice = 0;
         boolean isLoop = true;
         while (isLoop) {
@@ -20,9 +28,9 @@ public class Main {
             System.out.println("4. Nhap diem cho sinh vien");
             System.out.println("5. Xem thong tin va diem cua sinh vien");
             System.out.println("6. Xuat ra danh dach sinh vien (theo mssv tang dan)");
-            System.out.println("7. Tim kiem sinh vien co diem theo dieu kien (dang phat trien)");
+            System.out.println("7. Tim kiem sinh vien theo MSSV, ten sinh vien");
             System.out.println("8. In ra danh sach sinh vien (dang phat trien)");
-            System.out.println("9. Thoat");
+            System.out.println("9. Thoat va save");
             System.out.print("> Lua chon cua ban: ");
             choice = sc.nextInt();
             sc.nextLine();
@@ -51,13 +59,15 @@ public class Main {
                 showListOfStudent();
                 break;
             case 7: // code
-                inUpdate();
+                isExist = searchSutdent();
+                checkExistStudent(isExist);
                 break;
             case 8: //code 
                 inUpdate();
                 break;
             case 9: //code 
                 isLoop = false;
+                saveData();
                 break;
             default://code
                 System.out.println("Lua chon cua ban khong hop le! Vui long chon lai");
@@ -183,7 +193,7 @@ public class Main {
     }
 
     public static boolean showStudentInfo() {
-        System.out.print("> Nhap mssv de xem thong tin: ");
+        System.out.print("> Nhap MSSV de xem thong tin: ");
         int pos = sc.nextInt();
         sc.nextLine();
         if (pos < 1 || pos > sinhvien.getTotal()) {
@@ -204,18 +214,124 @@ public class Main {
 
     public static void showListOfStudent() {
         System.out.println("Danh sach sinh vien: ");
-        listSV.forEach(item ->{
+        listSV.forEach(item -> {
             item.showInList();
         });
     }
 
+    public static boolean searchSutdent(){
+        System.out.print("> Nhap MSSV hoac ten de xem thong tin: ");
+        String input = sc.nextLine();
+        int mssv=0;
+        boolean isMssv = true;
+        try{
+            mssv = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            isMssv = false;
+            input.toLowerCase();
+        }
+        if (isMssv) {
+            //Neu la mssv
+            if (mssv < 1 || mssv > sinhvien.getTotal()) {
+                return false;
+            }
+            for (sinhvien sv:listSV) {
+                if (sv.getMssv() == mssv) {
+                    isHasStudent = true;
+                    sv.showInformation();
+                }
+            }
+        }
+        else { 
+            for (sinhvien sv : listSV) {
+                if (sv.getName().toLowerCase().contains(input)) {
+                    isHasStudent = true;
+                    sv.showInformation();
+                }
+            }
+        }
+
+        if (isHasStudent) {
+            isHasStudent = false;
+            return true;
+        }
+        return false;
+    }
+
     public static void checkExistStudent(boolean isHasStudent) {
         if (!isHasStudent) {
-            System.out.println("Ma so sinh vien khong ton tai!");
+            System.out.println("Sinh vien khong ton tai!");
         }
     }
 
     public static void inUpdate() {
         System.out.println("Chuc nang nay dang duoc phat trien!");
+    }
+
+    public static void loadData() {
+        String path = "data.txt";
+        File myFile = new File(path);
+        try {
+            Scanner myReader = new Scanner(myFile);
+            String mydata;
+            String[] myDataArr;
+
+            while (myReader.hasNextLine()) {
+                mydata = myReader.nextLine();
+                myDataArr = mydata.split(",", -2);
+                int mssv = Integer.parseInt(myDataArr[0]);
+                if (myDataArr.length == 5) {
+                    listSV.add(new sinhvien(mssv, myDataArr[1], myDataArr[2], myDataArr[3], myDataArr[4]));
+                } else if (myDataArr.length == 8) {
+                    float toan = Float.parseFloat(myDataArr[5]);
+                    float hoa = Float.parseFloat(myDataArr[6]);
+                    float ly = Float.parseFloat(myDataArr[7]);
+                    listSV.add(
+                            new sinhvien(mssv, myDataArr[1], myDataArr[2], myDataArr[3], myDataArr[4], toan, hoa, ly));
+                }
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+
+        } catch (NumberFormatException e) {
+            System.out.println("Loi doc file!");
+        }
+    }
+    
+    public static void saveData() {
+        String path = "data.txt";
+        File myFile = new File(path);
+        try {
+            
+            if (!myFile.exists()) {
+                myFile.createNewFile();
+            }
+            if (myFile.exists()) {
+                FileWriter writer = new FileWriter(myFile);
+                // writer.write("\n");
+                listSV.forEach(item -> {
+                    if (item.getisSet()) {
+                        try{
+                            writer.write(item.getMssv() + "," + item.getName() + "," + item.getPhone() + ","
+                                    + item.getLop() + "," + item.getKhoa() + "," + item.getDiemToan() + ","
+                                    + item.getDiemHoa() + "," + item.getDiemLy() + "\n");
+                        } catch (IOException e) {
+                            System.out.println("Khong the ghi du lieu, loi: "+e.getMessage());
+                        }
+                    }
+                    else {
+                        try {
+                            writer.write(item.getMssv() + "," + item.getName() + "," + item.getPhone() + ","
+                                    + item.getLop() + "," + item.getKhoa() + "\n");
+                        } catch (IOException e) {
+                            System.out.println("Khong the ghi du lieu, loi: " + e.getMessage());
+                        }
+                    }
+                });
+                writer.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Khong the tao file, loi: " + e.getMessage());
+        }
     }
 }

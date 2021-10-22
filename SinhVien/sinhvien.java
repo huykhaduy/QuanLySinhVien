@@ -1,6 +1,9 @@
 package SinhVien;
 
 // import java.util.*;
+// 1,Huynh Khanh Duy,0932990047,12a12,cntt
+// 2,Huynh Van A,0932990048,12a13,y duoc
+// 4,Huynh Van B,0932990049,12a13,y duoc,10,9,10
 
 public class sinhvien {
     private static int id = 0;
@@ -9,9 +12,11 @@ public class sinhvien {
     private String phone;
     private String lop;
     private String khoa;
+    private static String noihoc = "DHSG";
     private float diemToan;
     private float diemHoa;
     private float diemLy;
+    
     //Boolean for check is set diem 
     private boolean isSetToan = false;
     private boolean isSetLy = false;
@@ -24,6 +29,10 @@ public class sinhvien {
         } else {
             isSet = false;
         }
+    }
+
+    public boolean getisSet() {
+        return this.isSet;
     }
 
     public sinhvien() {
@@ -40,10 +49,27 @@ public class sinhvien {
         this.mssv = ++id;
         setInfo(name, phone, lop, khoa);
     }
-
+    
+    public sinhvien(int mssv, String name, String phone, String lop, String khoa) {
+        setMssv(mssv);
+        setInfo(name, phone, lop, khoa);
+    }
+    
+    public sinhvien(int mssv,String name, String phone, String lop, String khoa, float diemToan, float diemHoa, float diemLy) {
+        setMssv(mssv);
+        setInfo(name, phone, lop, khoa);
+        setPoint(diemToan, diemHoa,diemLy);
+    }
 
     public static int getTotal() {
         return sinhvien.id;
+    }
+
+    public void setMssv(int mssv) {
+        if (mssv > 0) {
+            this.mssv = mssv;
+            id = mssv;
+        }
     }
 
     public int getMssv() {
@@ -105,6 +131,18 @@ public class sinhvien {
         return this.khoa;
     }
 
+    public void setNoiHoc(String noihoc) {
+        if (khoa.length() >= 2)
+            sinhvien.noihoc = noihoc;
+        else
+            sinhvien.noihoc = "Trong";
+
+    }
+    
+    public String getNoiHoc() {
+        return sinhvien.noihoc;
+    }
+
     public void setDiemToan(float diemToan) {
         if (diemToan >= 0 && diemToan <= 10) {
             this.diemToan = diemToan;
@@ -153,6 +191,7 @@ public class sinhvien {
         System.out.println("Ho va ten: " + name);
         System.out.println("Lop: " + lop);
         System.out.println("Khoa: " + khoa);
+        System.out.println("Noi hoc: " + noihoc);
         if (isSet) {
             System.out.println("Diem toan: " + diemToan);
             System.out.println("Diem hoa: " + diemHoa);
@@ -165,6 +204,8 @@ public class sinhvien {
     }
     
     public void showInList() {
-        System.out.println("MSSV: " + mssv +", name: " + name +", lop: "+lop+", khoa: "+khoa);
+        System.out.println("MSSV: " + mssv +", name: " + name +", lop: "+lop+", khoa: "+khoa+", noi hoc: "+noihoc);
     }
 }
+
+
