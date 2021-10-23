@@ -1,9 +1,5 @@
 package SinhVien;
 
-// import java.util.*;
-// 1,Huynh Khanh Duy,0932990047,12a12,cntt
-// 2,Huynh Van A,0932990048,12a13,y duoc
-// 4,Huynh Van B,0932990049,12a13,y duoc,10,9,10
 
 public class sinhvien {
     private static int id = 0;

@@ -19,7 +19,8 @@ public class Main {
         loadData();
         int choice = 0;
         boolean isLoop = true;
-        while (isLoop) {
+        try{
+            while (isLoop) {
             System.out.println("");
             System.out.println("-----------------MENU QUAN LY SINH VIEN-----------------");
             System.out.println("1. Them sinh vien");
@@ -35,45 +36,49 @@ public class Main {
             choice = sc.nextInt();
             sc.nextLine();
             boolean isExist = false;
-            switch (choice) {
-            case 1: //Them sinh vien
-                listSV.add(createStudent());
-                break;
-            case 2: // Xoa sinh vien
-                isExist = removeStudent();
-                checkExistStudent(isExist);
-                break;
-            case 3: // Thay doi thong tin
-                isExist = changeSinhVien();
-                checkExistStudent(isExist);
-                break;
-            case 4: // Them diem
-                isExist = addPointSinhVien();
-                checkExistStudent(isExist);
-                break;
-            case 5: // code
-                isExist = showStudentInfo();
-                checkExistStudent(isExist);
-                break;
-            case 6: // code
-                showListOfStudent();
-                break;
-            case 7: // code
-                isExist = searchSutdent();
-                checkExistStudent(isExist);
-                break;
-            case 8: //code 
-                inUpdate();
-                break;
-            case 9: //code 
-                isLoop = false;
-                saveData();
-                break;
-            default://code
-                System.out.println("Lua chon cua ban khong hop le! Vui long chon lai");
-                break;
+                switch (choice) {
+                case 1: //Them sinh vien
+                    listSV.add(createStudent());
+                    break;
+                case 2: // Xoa sinh vien
+                    isExist = removeStudent();
+                    checkExistStudent(isExist);
+                    break;
+                case 3: // Thay doi thong tin
+                    isExist = changeSinhVien();
+                    checkExistStudent(isExist);
+                    break;
+                case 4: // Them diem
+                    isExist = addPointSinhVien();
+                    checkExistStudent(isExist);
+                    break;
+                case 5: // code
+                    isExist = showStudentInfo();
+                    checkExistStudent(isExist);
+                    break;
+                case 6: // code
+                    showListOfStudent();
+                    break;
+                case 7: // code
+                    isExist = searchSutdent();
+                    checkExistStudent(isExist);
+                    break;
+                case 8: //code 
+                    inUpdate();
+                    break;
+                case 9: //code 
+                    isLoop = false;
+                    saveData();
+                    break;
+                default://code
+                    System.out.println("Lua chon cua ban khong hop le! Vui long chon lai");
+                    break;
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Chuong trinh bi loi, tu dong dung ...");
         }
+        
         sc.close();
     }
 
@@ -213,7 +218,7 @@ public class Main {
     }
 
     public static void showListOfStudent() {
-        System.out.println("Danh sach sinh vien: ");
+        System.out.println("Danh sach co "+ sinhvien.getTotal() +" sinh vien: ");
         listSV.forEach(item -> {
             item.showInList();
         });
