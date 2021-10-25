@@ -1,2 +1,3 @@
-1,Huynh Khanh Duy,0365336991,DCT12010,CNTT,10.0,10.0,10.0
-2,Trang Thanh Phuc,0123456789,DCT1204,CNTT
+1,Huynh Van A,So dien thoai khong hop le,DCT1201,CNTT,3.0,5.0,9.0
+2,Huynh Van B,0939192332,DCT1202,CNTT,9.0,5.0,4.0
+3,Huynh Van C,So dien thoai khong hop le,DCT12010,CNTT,8.0,9.0,4.0

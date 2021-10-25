@@ -200,7 +200,9 @@ public class sinhvien {
     }
     
     public void showInList() {
-        System.out.println("MSSV: " + mssv +", name: " + name +", lop: "+lop+", khoa: "+khoa+", noi hoc: "+noihoc);
+        // System.out.println(
+        //         "MSSV: " + mssv + ", name: " + name + ", lop: " + lop + ", khoa: " + khoa + ", noi hoc: " + noihoc);
+        System.out.printf("%-15d%-25s%-10s%-15s%-8.01f%-8.01f%-8.01f%-8.01f\n",this.mssv,this.name,this.lop,this.khoa,this.diemToan,this.diemLy,this.diemHoa,this.getDiemTrungBinh());
     }
 }
 

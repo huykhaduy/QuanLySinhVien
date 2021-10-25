@@ -30,7 +30,7 @@ public class Main {
             System.out.println("5. Xem thong tin va diem cua sinh vien");
             System.out.println("6. Xuat ra danh dach sinh vien (theo mssv tang dan)");
             System.out.println("7. Tim kiem sinh vien theo MSSV, ten sinh vien");
-            System.out.println("8. In ra danh sach sinh vien (dang phat trien)");
+            System.out.println("8. Sap xep sinh vien (theo diem trung binh tang dan)");
             System.out.println("9. Thoat va save");
             System.out.print("> Lua chon cua ban: ");
             choice = sc.nextInt();
@@ -64,7 +64,7 @@ public class Main {
                     checkExistStudent(isExist);
                     break;
                 case 8: //code 
-                    inUpdate();
+                    sortStudent();
                     break;
                 case 9: //code 
                     isLoop = false;
@@ -218,18 +218,19 @@ public class Main {
     }
 
     public static void showListOfStudent() {
-        System.out.println("Danh sach co "+ sinhvien.getTotal() +" sinh vien: ");
+        System.out.println("Danh sach co " + listSV.size() + " sinh vien:");
+        System.out.printf("%-15s%-25s%-10s%-15s%-8s%-8s%-8s%-8s\n","MSSV","Ho ten","Lop","Khoa","Toan","Ly","Hoa","DTB");
         listSV.forEach(item -> {
             item.showInList();
         });
     }
 
-    public static boolean searchSutdent(){
+    public static boolean searchSutdent() {
         System.out.print("> Nhap MSSV hoac ten de xem thong tin: ");
         String input = sc.nextLine();
-        int mssv=0;
+        int mssv = 0;
         boolean isMssv = true;
-        try{
+        try {
             mssv = Integer.parseInt(input);
         } catch (NumberFormatException e) {
             isMssv = false;
@@ -240,14 +241,13 @@ public class Main {
             if (mssv < 1 || mssv > sinhvien.getTotal()) {
                 return false;
             }
-            for (sinhvien sv:listSV) {
+            for (sinhvien sv : listSV) {
                 if (sv.getMssv() == mssv) {
                     isHasStudent = true;
                     sv.showInformation();
                 }
             }
-        }
-        else { 
+        } else {
             for (sinhvien sv : listSV) {
                 if (sv.getName().toLowerCase().contains(input)) {
                     isHasStudent = true;
@@ -261,6 +261,22 @@ public class Main {
             return true;
         }
         return false;
+    }
+
+    //Sort
+    public static void sortStudent() {
+        int n = listSV.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                sinhvien sv1 = listSV.get(i);
+                sinhvien sv2 = listSV.get(j);
+                if (sv1.getDiemTrungBinh() > sv2.getDiemTrungBinh()) {
+                    listSV.set(i, sv2);
+                    listSV.set(j, sv1);
+                }
+            }
+        }
+        showListOfStudent();
     }
 
     public static void checkExistStudent(boolean isHasStudent) {
