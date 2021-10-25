@@ -1,5 +1,6 @@
 package SinhVien;
 
+
 public class sinhvien {
     private static int id = 0;
     private int mssv;
@@ -202,8 +203,5 @@ public class sinhvien {
         System.out.println("MSSV: " + mssv +", name: " + name +", lop: "+lop+", khoa: "+khoa+", noi hoc: "+noihoc);
     }
 }
-
-
-
 
 
